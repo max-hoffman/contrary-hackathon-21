@@ -15,6 +15,15 @@
 - [ ] Deploy on AWS
 
 
+## Dependencies
+
+[poetry](https://python-poetry.org/docs/#installation)
+```
+curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python -
+poetry install
+```
+
+[terraform (click link)](https://learn.hashicorp.com/tutorials/terraform/install-cli)
 
 ## Data Format:
 
