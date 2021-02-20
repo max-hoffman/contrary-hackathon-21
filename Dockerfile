@@ -14,7 +14,7 @@ RUN poetry install --no-root
 
 EXPOSE 8000
 COPY . /usr/src/
-CMD ["uvicorn", "web.app:app", "--reload", "--host", "0.0.0.0"]
+CMD ["uvicorn", "web.app:app", "--forwarded-allow-ips='*'", "--host", "0.0.0.0"]
 
 #USER node
 

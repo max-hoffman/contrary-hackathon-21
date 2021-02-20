@@ -4,9 +4,11 @@ services:
   app:
     build: .
     ports:
-      - "8000:8000"
+      - "80:8000"
   #nginx:
     #build:
       #context: ./nginx
     #ports:
       #- 80:80
+    #depends_on:
+      #- app
