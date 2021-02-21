@@ -91,7 +91,7 @@ def get_data_from_url(url):
     return moment
 
 def format_row(data):
-    values = [data['cardAge'], data['num'], data['numCollectors'], data['plusMinusGame'], data['plusMinusSeason']]
+    values = [data['cardAge'], data['num'], data['numCollectors'], data['plusMinusSeason'], data['action_3 Pointer'], data['action_Dunk'], data['action_Handles'], data['action_Jump Shot'], data['action_Layup']]
     return values
     # return list(data.values())
 
@@ -100,7 +100,7 @@ def train():
 
 @lru_cache()
 def load_model():
-    path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "MLR_model_v1.pickle")
+    path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "MLR_model_v2.pickle")
     from statsmodels.iolib.smpickle import load_pickle
     model = load_pickle(path)
     return model
