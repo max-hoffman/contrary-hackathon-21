@@ -123,11 +123,12 @@ def evaluate(id):
     d = get_data_from_url(url)
     if not d: return -1
     img = d['img']
+    current_price = d['min']
     inputs = format_row(d)
     model = load_model()
     res = model.predict(inputs)
     logger.info(f"prediction: {res[0]}")
-    return res[0]
+    return (res[0], img, current_price)
 
 def main():
     fire.Fire(dict(
