@@ -23,15 +23,15 @@ def index(request: Request):
 async def read_url(request: Request, url: str = Form(...)):
     moment_id = url.split("/")[-1]
     values = topshot_model.evaluate(moment_id)
-    current_price = "$" + str(round(values[2], 2))
     buy = False
-    if current_price < value[0]: buy = True
+    current_value_ = values[2]
+    current_value = "$" + str(round(current_value_, 2))
+    value_ = values[0]
+    if current_value_ < value_: buy = True
+    if value_ <= 0: value = "$0.00"
+    else: value = "$" + str(round(value_, 2))
 
-    value = values[0]
-    if value <= 0: value = "$0.00"
-    else: value = "$" + str(round(value, 2))
-
-    return templates.TemplateResponse("result.html", {"request": request, "url": url, "value": values[0], "current_value": values[2], "img": values[1], "status": buy})
+    return templates.TemplateResponse("result.html", {"request": request, "url": url, "value": value, "current_value": current_value, "img": values[1], "status": buy})
     #return values
 
 # 4. Route with a single parameter, returns the parameter within a message
