@@ -12,7 +12,8 @@ input {
 }
 
 .btn-primary {
-    background-color: #4682b4;
+    background-color: black;
+    color: white;
 }
 
 .brand-wrapper {

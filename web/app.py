@@ -25,7 +25,7 @@ async def read_url(request: Request, url: str = Form(...)):
     values = topshot_model.evaluate(moment_id)
     buy = False
     current_value_ = values[2]
-    current_value = "$" + str(round(current_value_, 2))
+    current_value = "$" + str(round(current_value_, 2)) + "0"
     value_ = values[0]
     if current_value_ < value_: buy = True
     if value_ <= 0: value = "$0.00"
