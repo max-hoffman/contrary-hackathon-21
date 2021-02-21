@@ -1,8 +1,9 @@
+from contextlib import contextmanager
 from functools import lru_cache
 import logging
 
 logger = logging.getLogger()
-logger.setLevel(logging.INFO)
+logger.setLevel(logging.DEBUG)
 
 import fire
 
@@ -10,24 +11,28 @@ from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from bs4 import BeautifulSoup
 import datetime
+import os
 import json
 import re
 
 @lru_cache
 def get_driver():
-    try:
-        options = webdriver.ChromeOptions()
-        options.headless = True
-        driver = webdriver.Chrome(options=options)
-        yield driver
-    finally:
-        driver.quit()
+    #try:
+    options = webdriver.ChromeOptions()
+    options.headless = True
+    driver = webdriver.Chrome(options=options)
+    return driver
+    #finally:
+        #driver.quit()
 
 def get_data_from_url(url):
 
     # URL Validation
+    logger.info(f"url: {url}")
 
-    if "nbatopshot" not in url: return False
+    if "nbatopshot" not in url:
+        logger.info("invalid url")
+        return None
 
     regex = re.compile(
             r'^(?:http|ftp)s?://' # http:// or https://
@@ -36,7 +41,9 @@ def get_data_from_url(url):
             r'\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})' # ...or ip
             r'(?::\d+)?' # optional port
             r'(?:/?|[/?]\S+)$', re.IGNORECASE)
-    if re.match(regex, url) is None: return False
+    if re.match(regex, url) is None:
+        logger.info("invalid url")
+        return None
 
     moment = {}
 
@@ -78,6 +85,7 @@ def get_data_from_url(url):
     playerSeasonAverageScores = playerSeasonAverageScoresTable.find_all('td', {'class':'Label-sc-1c0wex9-0 Tablestyles__Cell-xih7iu-0 ebXDLw fNBBpY'})
     moment['plusMinusSeason'] = float(playerSeasonAverageScores[-1].text)
 
+    driver.quit()
     return moment
 
 def format_row(data):
@@ -90,17 +98,18 @@ def train():
 
 @lru_cache
 def load_model():
-    path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "pickle")
+    path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "MLR_model_v1.pickle")
     from statsmodels.iolib.smpickle import load_pickle
-    model = load_pickle("MLR_model_v1.pickle")
+    model = load_pickle(path)
     return model
 
 def evaluate(url = None):
     d = get_data_from_url(url)
     inputs = format_row(d)
     model = load_model()
-    res = model(inputs)
-    return res
+    res = model.predict(inputs)
+    logger.info(f"prediction: {res[0]}")
+    return res[0]
 
 def main():
     fire.Fire(dict(
