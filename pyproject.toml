@@ -20,6 +20,7 @@ jinja2 = "^2.11.3"
 beautifulsoup4 = "^4.9.3"
 selenium = "^3.141.0"
 statsmodels = "^0.12.2"
+aiofiles = "^0.6.0"
 
 [tool.poetry.dev-dependencies]
 

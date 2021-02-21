@@ -1,6 +1,6 @@
 FROM python:3.7
 
-RUN sudo wget \
+RUN wget \
     https://chromedriver.storage.googleapis.com/83.0.4103.39/chromedriver_linux64.zip \
     -O /usr/lib/chromedriver_linux64.zip \
     && unzip /usr/lib/chromedriver_linux64.zip -d /usr/lib/ \

@@ -15,7 +15,6 @@ import os
 import json
 import re
 
-@lru_cache
 def get_driver():
     #try:
     options = webdriver.ChromeOptions()
@@ -96,15 +95,18 @@ def format_row(data):
 def train():
     ...
 
-@lru_cache
+@lru_cache()
 def load_model():
     path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "MLR_model_v1.pickle")
     from statsmodels.iolib.smpickle import load_pickle
     model = load_pickle(path)
     return model
 
-def evaluate(url = None):
+@lru_cache()
+def evaluate(id):
+    url = os.path.join("https://www.nbatopshot.com/listings/p2p/", id)
     d = get_data_from_url(url)
+    if not d: return -1
     inputs = format_row(d)
     model = load_model()
     res = model.predict(inputs)
