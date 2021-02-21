@@ -19,11 +19,12 @@ app.mount("/static", StaticFiles(directory=static_dir), name="static")
 def index(request: Request):
     return templates.TemplateResponse("index.html", {"request": request})
 
-@app.post('/')
-async def read_url(url: str = Form(...)):
+@app.post('/', response_class=HTMLResponse)
+async def read_url(request: Request, url: str = Form(...)):
     moment_id = url.split("/")[-1]
     values = topshot_model.evaluate(moment_id)
-    return values
+    return templates.TemplateResponse("result.html", {"request": request, "url": url, "value": values})
+    #return values
 
 # 4. Route with a single parameter, returns the parameter within a message
 #    Located at: http://127.0.0.1:8000/AnyNameHere
