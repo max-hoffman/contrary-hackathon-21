@@ -96,6 +96,9 @@ def get_data_from_url(url):
     playerSeasonAverageScores = playerSeasonAverageScoresTable.find_all('td', {'class':'Label-sc-1c0wex9-0 Tablestyles__Cell-xih7iu-0 ebXDLw fNBBpY'})
     moment['plusMinusSeason'] = float(playerSeasonAverageScores[-1].text)
 
+    # IMAGE
+    moment['img'] = soup.find('img', {'class': 'Gallery__Img-sc-1rdwc7w-2 bzthkn'})['src'][:-21]
+
     driver.quit()
     return moment
 
@@ -119,6 +122,7 @@ def evaluate(id):
     url = os.path.join("https://www.nbatopshot.com/listings/p2p/", id)
     d = get_data_from_url(url)
     if not d: return -1
+    img = d['img']
     inputs = format_row(d)
     model = load_model()
     res = model.predict(inputs)
