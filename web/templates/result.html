@@ -11,15 +11,17 @@
         <div class="card login-card">
             <div class="row no-gutters">
                 <div class="col-md-4">
-                    <img src="{{ img }}" alt="img" class="login-card-img">
+                    <a href = "{{ url }}">
+                        <img src="{{ img }}" alt="img" class="login-card-img">
+                    </a>
                 </div>
                 <div class="col-md-8">
                     <div class="card-body">
                         <div class="brand-wrapper">
                             <img src="static/logo.png" alt="logo" class="logo">
                         </div>
+
                         <body>
-                            <p style="color:darkgrey;font-size:16">NBA Top Shot: <a>{{ url }}</a></p>
                             <p style="color:darkgrey;font-size:16">Predicted Value: {{ value }}</p>
                             <p style="color:darkgrey;font-size:16">Current Value: {{ current_value }}</p>
                             {% if buy %}
