@@ -23,9 +23,14 @@ def index(request: Request):
 async def read_url(request: Request, url: str = Form(...)):
     moment_id = url.split("/")[-1]
     values = topshot_model.evaluate(moment_id)
-    current_price = values[2]
+    current_price = "$" + str(round(values[2], 2))
     buy = False
     if current_price < value[0]: buy = True
+
+    value = values[0]
+    if value <= 0: value = "$0.00"
+    else: value = "$" + str(round(value, 2))
+
     return templates.TemplateResponse("result.html", {"request": request, "url": url, "value": values[0], "current_value": values[2], "img": values[1], "status": buy})
     #return values
 
