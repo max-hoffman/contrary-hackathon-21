@@ -1,6 +1,6 @@
 # 1. Library imports
 import uvicorn
-from fastapi import FastAPI, Request
+from fastapi import FastAPI, Request, Form
 from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
@@ -17,7 +17,13 @@ app.mount("/static", StaticFiles(directory=static_dir), name="static")
 # 3. Index route, opens automatically on http://127.0.0.1:8000
 @app.get('/')
 def index():
-    return {'message': 'Hello, stranger'}
+    return templates.TemplateResponse("index.html")
+
+@app.post('/')
+async def read_url(url: str = Form(...)):
+    moment_id = url.split("/")[-1]
+    values = topshot_model.evaluate(moment_id)
+    return values
 
 # 4. Route with a single parameter, returns the parameter within a message
 #    Located at: http://127.0.0.1:8000/AnyNameHere
