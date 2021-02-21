@@ -1,21 +1,22 @@
 [tool.poetry]
-name = "cli"
+name = "topshot_model"
 version = "0.1.0"
 description = ""
 authors = ["Max Hoffman <max@dolthub.com>"]
 
 packages = [
-    { include = "cli" }
+    { include = "topshot_model" }
 ]
 
 [tool.poetry.scripts]
-cli = "cli.main:main"
+cli = "topshot_model.main:main"
 
 [tool.poetry.dependencies]
 python = "^3.7"
 fire = "^0.4.0"
 fastapi = "^0.63.0"
 Uvicorn = "^0.13.4"
+jinja2 = "^2.11.3"
 
 [tool.poetry.dev-dependencies]
 

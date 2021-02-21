@@ -1,5 +1,12 @@
 FROM python:3.7
 
+RUN sudo wget \
+    https://chromedriver.storage.googleapis.com/83.0.4103.39/chromedriver_linux64.zip \
+    -O /usr/lib/chromedriver_linux64.zip \
+    && unzip /usr/lib/chromedriver_linux64.zip -d /usr/lib/ \
+    && rm -rf /usr/lib/chromedriver_linux64.zip \
+    && ln -s /usr/lib/chromedriver /usr/bin
+
 # Install Poetry
 RUN curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | POETRY_HOME=/opt/poetry python && \
     cd /usr/local/bin && \
