@@ -61,7 +61,16 @@ def get_data_from_url(url):
 
     # PLAYER
     moment['player'] = soup.find('h1', {'class': 'Heading__H2-kksint-1 gcacpp'}).text
-    moment['action'] = soup.find('h2', {'class': 'Text-sc-179eaht-0 kBJFOy'}).text
+    action = soup.find('h2', {'class': 'Text-sc-179eaht-0 kBJFOy'}).text
+
+    moment['action_3 Pointer'] = 1 if action == "3 Pointer" else 0
+    moment['action_Assist'] = 1 if action == "Assist" else 0
+    moment['action_Block'] = 1 if action == "Block" else 0
+    moment['action_Dunk'] = 1 if action == "Dunk" else 0
+    moment['action_Handles'] = 1 if action == "Handles" else 0
+    moment['action_Jump Shot'] = 1 if action == "Jump Shot" else 0
+    moment['action_Layup'] = 1 if action == "Layup" else 0
+    moment['action_Steal'] = 1 if action == "Steal" else 0
 
     # COUNTS
     moment['num'] = int(soup.find('span', {'class': 'Heading__H3-kksint-2 iZrhpZ'}).text)
