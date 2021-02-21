@@ -16,8 +16,8 @@ app.mount("/static", StaticFiles(directory=static_dir), name="static")
 
 # 3. Index route, opens automatically on http://127.0.0.1:8000
 @app.get('/')
-def index():
-    return templates.TemplateResponse("index.html")
+def index(request: Request):
+    return templates.TemplateResponse("index.html", {"request": request})
 
 @app.post('/')
 async def read_url(url: str = Form(...)):
