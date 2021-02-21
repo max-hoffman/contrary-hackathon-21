@@ -18,8 +18,11 @@ import re
 def get_driver():
     #try:
     options = webdriver.ChromeOptions()
+    options.add_argument("--remote-debugging-port=9222")
     options.headless = True
-    driver = webdriver.Chrome(options=options)
+    options.add_argument("--no-sandbox")
+    options.add_argument('--disable-dev-shm-usage')
+    driver = webdriver.Chrome(executable_path='/usr/local/bin/chromedriver', options=options)
     return driver
     #finally:
         #driver.quit()
