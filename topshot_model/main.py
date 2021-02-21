@@ -81,23 +81,26 @@ def get_data_from_url(url):
     return moment
 
 def format_row(data):
-    return list(data.values())
+    values = [data['cardAge'], data['num'], data['numCollectors'], data['plusMinusGame'], data['plusMinusSeason']]
+    return values
+    # return list(data.values())
 
 def train():
     ...
 
 @lru_cache
-def load_model(model_name):
-    path = os.path.join(..., model_name)
-    ...
+def load_model():
+    path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "pickle")
+    from statsmodels.iolib.smpickle import load_pickle
+    model = load_pickle("MLR_model_v1.pickle")
+    return model
 
 def evaluate(url = None):
     d = get_data_from_url(url)
     inputs = format_row(d)
-    #model = load_model(model_name)
-    #res = model(inputs)
-    #return res
-    return 56.5
+    model = load_model()
+    res = model(inputs)
+    return res
 
 def main():
     fire.Fire(dict(
