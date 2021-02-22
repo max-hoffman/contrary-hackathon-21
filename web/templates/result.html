@@ -22,8 +22,8 @@
                         </div>
 
                         <body>
-                            <p style="color:darkgrey;font-size:16">Predicted Value: {{ value }}</p>
-                            <p style="color:darkgrey;font-size:16">Current Price: {{ current_price }}</p>
+                            <p style="color: black;">Predicted Value: {{ value }}</p>
+                            <p style="color: black;">Current Price: {{ current_price }}</p>
                             {% if buy %}
                             <div class="brand-wrapper">
                                 <img src="static/buy.png" alt="logo" class="logo">
@@ -33,7 +33,9 @@
                                 <img src="static/sell.png" alt="logo" class="logo">
                             </div>
                             {% endif %}
-                        </body>
+
+                        <a href="/"><button class="btn-primary">Back</button></a>
+
                     </div>
                 </div>
             </div>
